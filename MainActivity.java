@@ -134,6 +134,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        mProgressBar=(ProgressBar)findViewById(R.id.google_progress);
+       /* mProgressBar.setVisibility(View.INVISIBLE);*/
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         Uri uri=getIntent().getData();
         getPreValue(mPreValue);
         try {
@@ -148,16 +154,18 @@ public class MainActivity extends AppCompatActivity
                                 -1,
                                 mPreValue[1]
                         );
+                        mHandler.obtainMessage(STOP).sendToTarget();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }).start();
-           Thread.sleep(3000);
+           //Thread.sleep(3000);
+            //mProgressBar.setVisibility(View.INVISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        Toast.makeText(MainActivity.this,"数据初始化完成!",Toast.LENGTH_LONG).show();
         final String[] items=SSFTPsync.strings;
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.single_choice_list_dialogs_title);
@@ -204,7 +212,6 @@ public class MainActivity extends AppCompatActivity
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                //mHandler.obtainMessage(STOP).sendToTarget();
                             }
                         }).start();
                         try {
@@ -236,12 +243,10 @@ public class MainActivity extends AppCompatActivity
         {
             SelectLANG(uri);
         }
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mProgressBar=(ProgressBar)findViewById(R.id.google_progress);
-        mProgressBar.setVisibility(View.INVISIBLE);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -258,7 +263,6 @@ public class MainActivity extends AppCompatActivity
         fab_git.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mProgressBar.setVisibility(View.VISIBLE);
                 alertDialog.show();
             }
         });
