@@ -30,8 +30,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import io.gitcafe.maxco292.editsharp.db.DatabaseAdapter;
 
@@ -261,19 +259,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                mProgressBar.setVisibility(View.VISIBLE);
-                Timer timer = new Timer();
-                TimerTask tast = new TimerTask() {
-                    @Override
-                    public void run() {
-                       mProgressBar.setVisibility(View.INVISIBLE);
-                    }
-                };
-                timer.schedule(tast, 3000);
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 alertDialog.show();
             }
         });
